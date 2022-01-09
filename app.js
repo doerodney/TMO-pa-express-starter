@@ -30,6 +30,7 @@ app.post("/api/books", (req, res) => {
   const id = books.length + 1
   req["id"] = id
   books.push(req.body)
+  console.log(books)
   res.status(201).send()
 });
 
@@ -38,6 +39,7 @@ app.post("/api/books", (req, res) => {
 curl --request GET http://localhost:5000/api/books
 */
 app.get("/api/books", (req, res) => {
+  console.log(books)
   res.status(200).send(books)
 });
   /*
@@ -70,12 +72,15 @@ app.get("/api/books", (req, res) => {
 
 // curl --request DELETE http://localhost:5000/api/books
 app.delete("/api/books", (req, res) => {
-  /*
-  HTTP Status: 204 No Content
+  
+  // Remove all items from the books array:
+  while (books.length) { 
+    books.pop()
+    console.log(books)
+  }
 
-  Response Body: None
-  */
   res.status(204).send()
+
 });
 
 module.exports = app;
