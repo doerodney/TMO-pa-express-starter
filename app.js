@@ -5,12 +5,18 @@ const books = [
     "title": "Moby Dick",
     "author": "Herman Melville",
     "yearPublished": 1851
-
   }
 ];
 
-// app.use(express.json());
-// app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+
+app.use(express.urlencoded(
+  { extended: true }
+));
+
+/* 
+curl --request GET http://localhost:5000/health
+*/
 
 app.get("/health", (req, res) => {
   res.status(200).send("Don't panic.");
@@ -23,28 +29,8 @@ curl --data '{"author": "Douglas Adams", "title": "The Hitchhikers Guide to the 
 app.post("/api/books", (req, res) => {
   const id = books.length + 1
   req["id"] = id
-  books.push(req)
+  books.push(req.body)
   res.status(201).send()
-
-/*
-curl --data '{"author": "Douglas Adams", "title": "The Hitchhikers Guide to the Galaxy", "yearPublished": 1979}' --header "Content-Type: application/json" --request POST http://localhost:5000/api/books
-
-HTTP Status: 201 Created
-Request Body:
-{
-  "author": "Douglas Adams",
-  "title": "The Hitchhiker's Guide to the Galaxy",
-  "yearPublished": 1979
-}
-
-Response Body:
-{
-  "id": 1,
-  "author": "Douglas Adams",
-  "title": "The Hitchhiker's Guide to the Galaxy",
-  "yearPublished": 1979
-}
-*/
 });
 
 
@@ -53,7 +39,8 @@ curl --request GET http://localhost:5000/api/books
 */
 app.get("/api/books", (req, res) => {
   res.status(200).send(books)
-/*
+});
+  /*
   HTTP Status: 200 OK
   
   Response Body:
@@ -79,7 +66,7 @@ app.get("/api/books", (req, res) => {
       }
     ]
 */
-});
+
 
 // curl --request DELETE http://localhost:5000/api/books
 app.delete("/api/books", (req, res) => {
