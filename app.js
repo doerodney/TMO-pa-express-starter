@@ -63,17 +63,17 @@ app.get("/health", (req, res) => {
 /*
 curl --data '{"author": "Douglas Adams", "title": "The Hitchhikers Guide to the Galaxy", "yearPublished": 1979}' --header "Content-Type: application/json" --request POST http://localhost:5000/api/books
 
-curl --data '{"writer": "Douglas Adams", "name": "The Hitchhikers Guide to the Galaxy", "year": 1979}' --header "Content-Type: application/json" --request POST http://localhost:5000/api/books
-
 curl --data '{"title": "Moby Dick", "author": "Herman Melville", "yearPublished": 1851}' --header  "Content-Type: application/json" --request POST http://localhost:5000/api/books
 
 curl --data '{"author": "Philip K. Dick", "title": "Do Androids Dream of Electric Sheep?", "yearPublished": 1968}' --header  "Content-Type: application/json" --request POST http://localhost:5000/api/books
   
 */
 app.post("/api/books", (req, res) => {
-  addBook(req.body)
+  obj = req.body
+  obj['id'] = (books.length + 1)
+  books.push(obj)
   //console.log(books)
-  res.status(201).send()
+  res.status(201).send(obj)
 });
 
 
@@ -84,35 +84,9 @@ app.get("/api/books", (req, res) => {
   //console.log(books)
   res.status(200).send(books.sort(compareByTitle))
 });
-  /*
-  HTTP Status: 200 OK
   
-  Response Body:
-  {
-    "books": [
-      {
-        "id": ,
-        "author": "Philip K. Dick",
-        "title": "Do Androids Dream of Electric Sheep?",
-        "yearPublished": 1968
-      },
-      {
-        "id": 1,
-        "author": "Douglas Adams",
-        "title": "The Hitchhiker's Guide to the Galaxy",
-        "yearPublished": 1979
-      },
-      {
-        "id": 3,
-        "author": "William Gibson",
-        "title": "Neuromancer",
-        "yearPublished": 1984
-      }
-    ]
-*/
 
-
-// curl --request DELETE http://localhost:5000/api/books
+// curl --request DELETE http://localhost:5000/api/books  --verbose 
 app.delete("/api/books", (req, res) => {
   
   // Remove all items from the books array:
