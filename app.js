@@ -1,12 +1,37 @@
 const express = require("express");
 const app = express();
-const books = [
-  {
-    "title": "Moby Dick",
-    "author": "Herman Melville",
-    "yearPublished": 1851
+const books = [];
+
+
+const isUniqueBook = (book) => {
+  // Verify that the book has not already been added:
+  let isUnique = true
+
+  for (member of books) {
+    if ((book['title']) == member['title']) {
+      isUnique = false
+      break
+    }
   }
-];
+
+  return isUnique
+}
+
+const isValidBook = (obj) => {
+  // Test if the object has the parts required to be a book:
+  isValid = (('title' in obj) && ('author' in obj) && ('yearPublished' in obj)) ? true : false;
+  // console.log(obj)
+  // console.log(isValid)
+  return isValid
+}
+
+const addBook = (obj) => {
+  if (isValidBook(obj) && isUniqueBook(obj)) {
+    obj['id'] = (books.length + 1)
+    books.push(obj)
+  }
+}
+
 
 app.use(express.json());
 
@@ -25,11 +50,14 @@ app.get("/health", (req, res) => {
 
 /*
 curl --data '{"author": "Douglas Adams", "title": "The Hitchhikers Guide to the Galaxy", "yearPublished": 1979}' --header "Content-Type: application/json" --request POST http://localhost:5000/api/books
+
+curl --data '{"writer": "Douglas Adams", "name": "The Hitchhikers Guide to the Galaxy", "year": 1979}' --header "Content-Type: application/json" --request POST http://localhost:5000/api/books
+
+curl --data '{"title": "Moby Dick", "author": "Herman Melville", "yearPublished": 1851}' --header  "Content-Type: application/json" --request POST http://localhost:5000/api/books
+
 */
 app.post("/api/books", (req, res) => {
-  const id = books.length + 1
-  req["id"] = id
-  books.push(req.body)
+  addBook(req.body)
   console.log(books)
   res.status(201).send()
 });
