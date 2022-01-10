@@ -32,6 +32,18 @@ const addBook = (obj) => {
   }
 }
 
+const compareByTitle = (a, b) => {
+  if (a.title < b.title) {
+    return -1
+  }
+
+  if (a.title > b.title) {
+    return 1
+  }
+
+  return 0
+}
+
 
 app.use(express.json());
 
@@ -55,10 +67,12 @@ curl --data '{"writer": "Douglas Adams", "name": "The Hitchhikers Guide to the G
 
 curl --data '{"title": "Moby Dick", "author": "Herman Melville", "yearPublished": 1851}' --header  "Content-Type: application/json" --request POST http://localhost:5000/api/books
 
+curl --data '{"author": "Philip K. Dick", "title": "Do Androids Dream of Electric Sheep?", "yearPublished": 1968}' --header  "Content-Type: application/json" --request POST http://localhost:5000/api/books
+  
 */
 app.post("/api/books", (req, res) => {
   addBook(req.body)
-  console.log(books)
+  //console.log(books)
   res.status(201).send()
 });
 
@@ -67,8 +81,8 @@ app.post("/api/books", (req, res) => {
 curl --request GET http://localhost:5000/api/books
 */
 app.get("/api/books", (req, res) => {
-  console.log(books)
-  res.status(200).send(books)
+  //console.log(books)
+  res.status(200).send(books.sort(compareByTitle))
 });
   /*
   HTTP Status: 200 OK
@@ -104,7 +118,7 @@ app.delete("/api/books", (req, res) => {
   // Remove all items from the books array:
   while (books.length) { 
     books.pop()
-    console.log(books)
+    //console.log(books)
   }
 
   res.status(204).send()
