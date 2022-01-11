@@ -12,8 +12,8 @@ const testBooks = [
     "yearPublished": 1979
   },
   {
+    "author": "Herman Melville",
     "title": "Moby Dick", 
-    "author": "Herman Melville", 
     "yearPublished": 1851
   },
   {
@@ -23,6 +23,7 @@ const testBooks = [
   }
 ]
 
+// Test health endpoint:
 describe("Base routes", () => {
   it("provides a response to the health endpoint", (done) => {
     chai
@@ -35,16 +36,13 @@ describe("Base routes", () => {
   });
 });
 
-describe("/POST book", () => {
+
+// Test POST of a book:
+describe("/POST first book", () => {
   it('it should post a book with no id but return a book with an id', (done) => {
-    let book = {
-      "title": "Eloquent JavaScript",
-      "author": "Marijn Haverbeke",
-      "yearPublished": 2019
-    }
     chai.request(app)
       .post('/api/books')
-      .send(book)
+      .send(testBooks[0])
       .end((err, res) => {
           expect(res).to.have.status(201);
           expect(res.body).to.have.property('id');
@@ -57,16 +55,12 @@ describe("/POST book", () => {
 });
 
 
+// Test POST of another book:
 describe("/POST second book", () => {
   it('it should post a book with no id but return a book with an id', (done) => {
-    let book = {
-      "title": "Moby Dick", 
-      "author": "Herman Melville", 
-      "yearPublished": 1851
-    }
     chai.request(app)
       .post('/api/books')
-      .send(book)
+      .send(testBooks[1])
       .end((err, res) => {
           expect(res).to.have.status(201);
           expect(res.body).to.have.property('id');
@@ -78,16 +72,13 @@ describe("/POST second book", () => {
   })
 });
 
+
+// Test POST of yet another book:
 describe("/POST third book", () => {
   it('it should post a book with no id but return a book with an id', (done) => {
-    let book = {
-      "title": "The Meadowlands", 
-      "author": "Robert Sullivan", 
-      "yearPublished": 1998
-    }
     chai.request(app)
       .post('/api/books')
-      .send(book)
+      .send(testBooks[2])
       .end((err, res) => {
           expect(res).to.have.status(201);
           expect(res.body).to.have.property('id');
@@ -100,6 +91,7 @@ describe("/POST third book", () => {
 });
 
 
+// Test GET of books:
 describe("/GET multiple books", () => {
   it('it should return the books sorted by title', (done) => {
     chai.request(app)
@@ -107,16 +99,16 @@ describe("/GET multiple books", () => {
       .end((err, res) => {
           expect(res).to.have.status(200);
           expect(res.body).to.be.a('array');
-          expect(res.body[0]['title']).to.equal('Eloquent JavaScript')
-          expect(res.body[1]['title']).to.equal('Moby Dick')
-          expect(res.body[2]['title']).to.equal('The Meadowlands')
-
+          expect(res.body[0]['title']).to.equal(testBooks[2]['title'])
+          expect(res.body[1]['title']).to.equal(testBooks[1]['title'])
+          expect(res.body[2]['title']).to.equal(testBooks[0]['title'])
         done()
       })
   })
 });
 
 
+// Test DELETE of books:
 describe("/DELETE books", () => {
   it('it should delete all books', (done) => {
     chai.request(app)
