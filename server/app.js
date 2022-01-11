@@ -53,7 +53,10 @@ curl --request GET http://localhost:5000/api/books
 app.get("/api/books", (req, res) => {
   //console.log(books.sort(compareByTitle))
   res.setHeader("Content-Type", "application/json")
-  res.status(200).json(books.sort(compareByTitle))
+  const sortedBooks = books.sort(compareByTitle)
+  const doc = {}
+  doc['books'] = sortedBooks
+  res.status(200).json(doc)
 });
   
 

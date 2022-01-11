@@ -98,10 +98,10 @@ describe("/GET multiple books", () => {
       .get('/api/books')
       .end((err, res) => {
           expect(res).to.have.status(200);
-          expect(res.body).to.be.a('array');
-          expect(res.body[0]['title']).to.equal(testBooks[2]['title'])
-          expect(res.body[1]['title']).to.equal(testBooks[1]['title'])
-          expect(res.body[2]['title']).to.equal(testBooks[0]['title'])
+          expect(res.body.books).to.be.a('array');
+          expect(res.body.books[0]['title']).to.equal(testBooks[2]['title'])
+          expect(res.body.books[1]['title']).to.equal(testBooks[1]['title'])
+          expect(res.body.books[2]['title']).to.equal(testBooks[0]['title'])
         done()
       })
   })
