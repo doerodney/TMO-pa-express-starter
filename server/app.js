@@ -51,7 +51,7 @@ app.post("/api/books", (req, res) => {
 curl --request GET http://localhost:5000/api/books
 */
 app.get("/api/books", (req, res) => {
-  //console.log(books)
+  console.log(books.sort(compareByTitle))
   res.status(200).send(books.sort(compareByTitle))
 });
   
