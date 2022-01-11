@@ -52,7 +52,6 @@ curl --request GET http://localhost:5000/api/books
 */
 app.get("/api/books", (req, res) => {
   //console.log(books.sort(compareByTitle))
-  res.setHeader("Content-Type", "application/json")
   const sortedBooks = books.sort(compareByTitle)
   const doc = {}
   doc['books'] = sortedBooks
