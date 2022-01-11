@@ -2,36 +2,6 @@ const express = require("express");
 const app = express();
 const books = [];
 
-
-const isUniqueBook = (book) => {
-  // Verify that the book has not already been added:
-  let isUnique = true
-
-  for (member of books) {
-    if ((book['title']) == member['title']) {
-      isUnique = false
-      break
-    }
-  }
-
-  return isUnique
-}
-
-const isValidBook = (obj) => {
-  // Test if the object has the parts required to be a book:
-  isValid = (('title' in obj) && ('author' in obj) && ('yearPublished' in obj)) ? true : false;
-  // console.log(obj)
-  // console.log(isValid)
-  return isValid
-}
-
-const addBook = (obj) => {
-  if (isValidBook(obj) && isUniqueBook(obj)) {
-    obj['id'] = (books.length + 1)
-    books.push(obj)
-  }
-}
-
 const compareByTitle = (a, b) => {
   if (a.title < b.title) {
     return -1
