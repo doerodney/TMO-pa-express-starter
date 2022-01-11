@@ -43,7 +43,7 @@ app.post("/api/books", (req, res) => {
   obj['id'] = (books.length + 1)
   books.push(obj)
   //console.log(books)
-  res.status(201).send(obj)
+  res.status(201).json(obj)
 });
 
 
@@ -51,8 +51,8 @@ app.post("/api/books", (req, res) => {
 curl --request GET http://localhost:5000/api/books
 */
 app.get("/api/books", (req, res) => {
-  console.log(books.sort(compareByTitle))
-  res.status(200).send(books.sort(compareByTitle))
+  //console.log(books.sort(compareByTitle))
+  res.status(200).json(books.sort(compareByTitle))
 });
   
 
