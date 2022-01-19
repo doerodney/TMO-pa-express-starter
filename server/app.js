@@ -22,7 +22,7 @@ app.use(express.urlencoded(
 ));
 
 /* 
-curl --request GET http://localhost:5000/health
+curl --request GET http://localhost:4000/health
 */
 
 app.get("/health", (req, res) => {
@@ -31,11 +31,11 @@ app.get("/health", (req, res) => {
 
 
 /*
-curl --data '{"author": "Douglas Adams", "title": "The Hitchhikers Guide to the Galaxy", "yearPublished": 1979}' --header "Content-Type: application/json" --request POST http://localhost:5000/api/books
+curl --data '{"author": "Douglas Adams", "title": "The Hitchhiker's Guide to the Galaxy", "yearPublished": 1979}' --header "Content-Type: application/json" --request POST http://localhost:4000/api/books
 
-curl --data '{"title": "Moby Dick", "author": "Herman Melville", "yearPublished": 1851}' --header  "Content-Type: application/json" --request POST http://localhost:5000/api/books
+curl --data '{"title": "Moby Dick", "author": "Herman Melville", "yearPublished": 1851}' --header  "Content-Type: application/json" --request POST http://localhost:4000/api/books
 
-curl --data '{"author": "Philip K. Dick", "title": "Do Androids Dream of Electric Sheep?", "yearPublished": 1968}' --header  "Content-Type: application/json" --request POST http://localhost:5000/api/books
+curl --data '{"author": "Philip K. Dick", "title": "Do Androids Dream of Electric Sheep?", "yearPublished": 1968}' --header  "Content-Type: application/json" --request POST http://localhost:4000/api/books
   
 */
 app.post("/api/books", (req, res) => {
@@ -48,7 +48,7 @@ app.post("/api/books", (req, res) => {
 
 
 /* 
-curl --request GET http://localhost:5000/api/books
+curl --request GET http://localhost:4000/api/books
 */
 app.get("/api/books", (req, res) => {
   //console.log(books.sort(compareByTitle))
@@ -59,7 +59,7 @@ app.get("/api/books", (req, res) => {
 });
   
 
-// curl --request DELETE http://localhost:5000/api/books  --verbose 
+// curl --request DELETE http://localhost:4000/api/books  --verbose 
 app.delete("/api/books", (req, res) => {
   
   // Remove all items from the books array:
