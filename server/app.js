@@ -31,7 +31,7 @@ app.get("/health", (req, res) => {
 
 
 /*
-curl --data '{"author": "Douglas Adams", "title": "The Hitchhiker's Guide to the Galaxy", "yearPublished": 1979}' --header "Content-Type: application/json" --request POST http://localhost:4000/api/books
+curl --data '{"author": "Douglas Adams", "title": "The Hitchhikers Guide to the Galaxy", "yearPublished": 1979}' --header "Content-Type: application/json" --request POST http://localhost:4000/api/books
 
 curl --data '{"title": "Moby Dick", "author": "Herman Melville", "yearPublished": 1851}' --header  "Content-Type: application/json" --request POST http://localhost:4000/api/books
 
