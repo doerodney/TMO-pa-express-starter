@@ -23,12 +23,20 @@ const testBooks = [
   }
 ]
 
-// Test health endpoint:
+// Test 
 describe("Base routes", () => {
-  it("provides a response to the health endpoint", (done) => {
-    chai
-      .request(app)
+  it("tests the response from the health endpoint", (done) => {
+    chai.request(app)
       .get("/health")
+      .end((err, res) => {
+        expect(res).to.have.status(200);
+        done();
+      });
+  });
+
+  it("tests the response from the version endpoint", (done) => {
+    chai.request(app)
+      .get("/version")
       .end((err, res) => {
         expect(res).to.have.status(200);
         done();
@@ -36,10 +44,12 @@ describe("Base routes", () => {
   });
 });
 
+// Test version route:
+
 
 // Test POST of a book:
 describe("/POST first book", () => {
-  it('it should post a book with no id but return a book with an id', (done) => {
+  it('should post a book with no id but return a book with an id', (done) => {
     chai.request(app)
       .post('/api/books')
       .send(testBooks[0])
@@ -57,7 +67,7 @@ describe("/POST first book", () => {
 
 // Test POST of another book:
 describe("/POST second book", () => {
-  it('it should post a book with no id but return a book with an id', (done) => {
+  it('should post a book with no id but return a book with an id', (done) => {
     chai.request(app)
       .post('/api/books')
       .send(testBooks[1])
@@ -75,7 +85,7 @@ describe("/POST second book", () => {
 
 // Test POST of yet another book:
 describe("/POST third book", () => {
-  it('it should post a book with no id but return a book with an id', (done) => {
+  it('should post a book with no id but return a book with an id', (done) => {
     chai.request(app)
       .post('/api/books')
       .send(testBooks[2])
@@ -93,7 +103,7 @@ describe("/POST third book", () => {
 
 // Test GET of books:
 describe("/GET multiple books", () => {
-  it('it should return the books sorted by title', (done) => {
+  it('should return the books sorted by title', (done) => {
     chai.request(app)
       .get('/api/books')
       .end((err, res) => {
@@ -110,7 +120,7 @@ describe("/GET multiple books", () => {
 
 // Test DELETE of books:
 describe("/DELETE books", () => {
-  it('it should delete all books', (done) => {
+  it('should delete all books', (done) => {
     chai.request(app)
       .delete('/api/books')
       .end((err, res) => {

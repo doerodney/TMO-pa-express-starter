@@ -1,4 +1,7 @@
 const express = require("express");
+const fs = require("fs");
+const path = require("path");
+
 const app = express();
 const books = [];
 
@@ -23,12 +26,29 @@ app.use(express.urlencoded(
 
 /* 
 curl --request GET http://localhost:4000/health
-*/
 
+*/
 app.get("/health", (req, res) => {
   res.status(200).send("Don't panic.");
 });
 
+
+/* 
+curl --request GET http://localhost:4000/version
+
+*/
+app.get("/version", (req, res) => {
+  const version_path = path.resolve(__dirname, '../version.txt');
+
+  fs.readFile(version_path, 'utf-8', (err, content) => {
+    if (err) {
+      console.log(err);
+      res.status(204).send();
+    } else {
+      res.status(200).send(content);
+    }
+  });
+});
 
 /*
 curl --data '{"author": "Douglas Adams", "title": "The Hitchhikers Guide to the Galaxy", "yearPublished": 1979}' --header "Content-Type: application/json" --request POST http://localhost:4000/api/books
