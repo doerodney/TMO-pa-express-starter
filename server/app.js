@@ -32,6 +32,14 @@ app.get("/health", (req, res) => {
   res.status(200).send("Don't panic.");
 });
 
+/* 
+curl --request GET http://localhost:4000/utc
+
+*/
+app.get("/utc", (req, res) => {
+  const d = new Date();
+  res.status(200).send(new Date().toISOString());
+})
 
 /* 
 curl --request GET http://localhost:4000/version

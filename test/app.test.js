@@ -34,6 +34,15 @@ describe("Base routes", () => {
       });
   });
 
+  it("tests the response from the utc endpoint", (done) => {
+    chai.request(app)
+      .get("/utc")
+      .end((err, res) => {
+        expect(res).to.have.status(200);
+        done();
+      });
+  });
+
   it("tests the response from the version endpoint", (done) => {
     chai.request(app)
       .get("/version")
