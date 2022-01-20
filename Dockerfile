@@ -8,6 +8,9 @@ COPY server/*.js ./server/
 # Copy the package files to /app/:
 COPY package*.json .
 
+# Copy the version file to /app/:
+COPY version.txt .
+
 # Copy the test files to /app/test/
 COPY test/*.js ./test/
 

@@ -1,6 +1,6 @@
 const express = require("express");
-const fs = require("fs");
-const path = require("path");
+const { readFile } = require("fs");
+const { resolve } = require("path");
 
 const app = express();
 const books = [];
@@ -38,9 +38,9 @@ curl --request GET http://localhost:4000/version
 
 */
 app.get("/version", (req, res) => {
-  const version_path = path.resolve(__dirname, '../version.txt');
+  const version_path = resolve(__dirname, '../version.txt');
 
-  fs.readFile(version_path, 'utf-8', (err, content) => {
+  readFile(version_path, 'utf-8', (err, content) => {
     if (err) {
       console.log(err);
       res.status(204).send();
