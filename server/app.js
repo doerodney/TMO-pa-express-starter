@@ -37,7 +37,9 @@ curl --request GET http://localhost:4000/utc
 
 */
 app.get("/utc", (req, res) => {
-  res.status(200).send(new Date().toISOString());
+  const doc = {};
+  doc['utc'] = new Date().toISOString();
+  res.status(200).json(doc);
 })
 
 /* 
