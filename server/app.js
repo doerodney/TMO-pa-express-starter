@@ -37,7 +37,6 @@ curl --request GET http://localhost:4000/utc
 
 */
 app.get("/utc", (req, res) => {
-  const d = new Date();
   res.status(200).send(new Date().toISOString());
 })
 
@@ -67,7 +66,7 @@ curl --data '{"author": "Philip K. Dick", "title": "Do Androids Dream of Electri
   
 */
 app.post("/api/books", (req, res) => {
-  obj = req.body
+  const obj = req.body
   obj['id'] = (books.length + 1)
   books.push(obj)
   //console.log(books)
